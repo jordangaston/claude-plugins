@@ -1,0 +1,17 @@
+{
+  "members": [
+    { "name": "Naval Ravikant", "slug": "naval-ravikant", "expertise": "startups, wealth creation, philosophy, leverage" },
+    { "name": "Ed Thorp", "slug": "ed-thorp", "expertise": "quantitative analysis, risk management, probability, investing" },
+    { "name": "Toby Lutke", "slug": "toby-lutke", "expertise": "product engineering, company building, systems thinking" },
+    { "name": "Elon Musk", "slug": "elon-musk", "expertise": "first-principles engineering, scaling, manufacturing" },
+    { "name": "Barack Obama", "slug": "barack-obama", "expertise": "leadership, communication, coalition building, policy" },
+    { "name": "Richard Feynman", "slug": "richard-feynman", "expertise": "physics, scientific method, curiosity-driven problem solving" },
+    { "name": "Socrates", "slug": "socrates", "expertise": "critical questioning, ethics, dialectic method" },
+    { "name": "Marcus Aurelius", "slug": "marcus-aurelius", "expertise": "stoic philosophy, leadership under pressure, self-discipline" },
+    { "name": "Mark Zuckerberg", "slug": "mark-zuckerberg", "expertise": "platform building, move-fast culture, long-term vision" },
+    { "name": "Ray Dalio", "slug": "ray-dalio", "expertise": "radical transparency, principles-based decisions, macro investing" },
+    { "name": "Bill Walsh", "slug": "bill-walsh", "expertise": "organizational culture, coaching, The Standard of Performance" },
+    { "name": "Tim Grover", "slug": "tim-grover", "expertise": "mental toughness, elite performance, relentless mindset" },
+    { "name": "Jocko Willink", "slug": "jocko-willink", "expertise": "extreme ownership, combat leadership, discipline, team building" }
+  ]
+}
