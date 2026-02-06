@@ -1,12 +1,12 @@
 {
-    "name": "claude-plugins",
+    "name": "jags-plugins",
     "owner": {
         "name": "jordangaston"
     },
     "plugins": [
         {
             "name": "bod",
-            "source": "./plugins/claude-plugins/bod",
+            "source": "./plugins/bod",
             "description": "Consult your personal board of directors"
         }
     ]
