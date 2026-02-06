@@ -11,7 +11,7 @@
         },
         {
             "name": "head",
-            "source": "./plugins/claude-plugins/head",
+            "source": "./plugins/head",
             "description": "Run a HEAD analysis using Philip Mudd's 5-step intelligence decision-making framework"
         }
     ]
