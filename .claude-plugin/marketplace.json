@@ -8,6 +8,11 @@
             "name": "bod",
             "source": "./plugins/bod",
             "description": "Consult your personal board of directors"
+        },
+        {
+            "name": "head",
+            "source": "./plugins/claude-plugins/head",
+            "description": "Run a HEAD analysis using Philip Mudd's 5-step intelligence decision-making framework"
         }
     ]
 }
