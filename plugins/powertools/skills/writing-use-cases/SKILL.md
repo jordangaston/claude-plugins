@@ -1,9 +1,9 @@
 ---
 name: writing-use-cases
-description: Write use case documents that define system behavior — goals, flows, operations, and edge cases — precisely enough for an AI agent to implement without ambiguity.
+description: Write use case documents that define system behavior — goals, flows, operations, and edge cases — precisely enough for an AI agent to implement without ambiguity.  
 ---
 
-A spec format that defines system behavior — including edge cases — precisely enough for an AI agent to implement without ambiguity.
+A spec format that defines system behavior — including edge cases — precisely enough for an AI agent to implement without ambiguity.  Use cases should treat the system as a black box.  Internal system behavior will be specified in a technical design document.
 
 ---
 
