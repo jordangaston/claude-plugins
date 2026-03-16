@@ -62,10 +62,10 @@ Write a Use Case Implementation for every Flow. Write a separate focused impleme
 2. **Name participants precisely.** Use actual component names — not generic labels like "Backend" or "Service." If the use case says "System classifies intent," the implementation shows which component classifies and what it calls.
 3. **Show the happy path first.** Use `rect` blocks to group logical phases. Add `note` annotations for side effects (storing tokens, logging events) that produce no response arrow.
 4. **Cover extensions.** Each extension from the use case should appear as an `alt` or `opt` block, or as a separate diagram if it would clutter the main one.
-5. **Never assume failure behavior.** When implementing extensions, do not guess how dependencies — including the runtime — behave in failure modes. If the behavior is not well understood, resolve the ambiguity before writing the diagram:
+5. **Never assume dependency behavior.** Do not guess how dependencies — including the runtime — behave in normal operation or failure modes. If the behavior is not well understood, resolve the ambiguity before writing the diagram:
    1. **Read the code** — check the dependency's source for error handling, return values, and exception types.
    2. **Read the documentation** — look for documented failure modes, error codes, and guarantees.
-   3. **Run an experiment** — reproduce the failure in a REPL or sandbox environment and observe the actual behavior.
+   3. **Run an experiment** — Use a REPL or sandbox environment and observe the actual behavior.
    4. **If none of these resolve the ambiguity, create an open question.** Reference the question ID (e.g., "See Q-03") in the diagram where the unknown behavior affects the extension. Do not invent behavior.
 
 ## Tables
