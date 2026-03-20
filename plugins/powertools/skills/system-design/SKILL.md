@@ -40,7 +40,7 @@ Research thoroughly. Write everything down. Never rely on chat history — it co
 1. Read every document the user provides — specs, pitches, notes, prior designs.
 2. Explore the codebase. Find existing patterns, conventions, data models, and APIs. Use file search, code search, and file reads — not guesses.
 3. Identify similar features already built. They are your strongest reference for how this system should work.
-4. Research the technologies, design patterns, and existing solutions you will use. Read official documentation, relevant guides, and reference implementations. Fetch external docs when local sources fall short.
+4. Research the technologies, design patterns, and existing solutions you will use. Invoke the `/deep-research` skill in `ultradeep` mode for this step — it will read official documentation, relevant guides, and reference implementations.
 5. State the system's purpose in one sentence. Confirm it with the user before proceeding.
 
 **Research log.** Create `/tmp/system-design-research.md` at the start of Phase 1. Record every finding — codebase patterns, technology constraints, API behaviors, design tradeoffs, open questions — as you discover them. Structure the log by topic, not by order of discovery. Reference this file throughout Phases 2 and 3. It is your source of truth, not the conversation.
