@@ -1,6 +1,6 @@
 ---
 name: founding-sales
-description: Apply the Founding Sales framework by Peter Kazanjy to early-stage B2B go-to-market. Use this skill when a founder or first-time seller needs help with any part of the sales process: building a narrative, prospecting, outreach, pitching, closing, or hiring their first sales team. Also trigger when users say things like "I need to start selling," "how do I get my first customers," "help me with my pitch," "how do I find prospects," "how do I close deals," "how do I hire salespeople," or are transitioning from building to selling. Covers the full arc from pre-PMF evangelical sales through scaling a sales org.
+description: "Apply the Founding Sales framework by Peter Kazanjy to early-stage B2B go-to-market. Use this skill when a founder or first-time seller needs help with any part of the sales process: building a narrative, prospecting, outreach, pitching, closing, or hiring their first sales team. Also trigger when users say things like 'I need to start selling,' 'how do I get my first customers,' 'help me with my pitch,' 'how do I find prospects,' 'how do I close deals,' 'how do I hire salespeople,' or are transitioning from building to selling. Covers the full arc from pre-PMF evangelical sales through scaling a sales org."
 ---
 
 # Founding Sales
