@@ -14,21 +14,22 @@ Design documents answer *how does the system do it?* They open the box and speci
 
 Every design document should trace back to one or more use cases. If no use case justifies a design element, that element is speculative.
 
-
 # Document Structure
 
 Every design document contains these sections in order:
 
 1. **Reviews** — tracker for reviewer status and feedback
 2. **Use Case Implementations** — sequence diagrams showing how components collaborate to fulfill each use case
-3. **Tables** — data model definitions for persistent storage
-4. **APIs** — HTTP endpoint contracts
-5. **Testing** — strategy for unit, integration, and end-to-end tests, including any test infrastructure needed
-6. **Deployment** — how to ship safely: migrations, data migrations, feature flags, rollback plans
-7. **Monitoring** — how to verify the feature works in production: metrics, alerts, dashboards
-8. **Decisions** — significant technical choices and their reasoning
-9. **Open Questions** — unresolved questions that block or could change the design
-10. **Appendix A — Changelog** — dated record of revisions to the document
+3. **Entities** - class diagram showing how the entities interact with one another
+4. **Tables** — data model definitions for persistent storage
+5. **Modules** - class diagram and dataflow diagram showing how the core interfaces interact with one another
+6. **APIs** — HTTP endpoint contracts
+7. **Testing** — strategy for unit, integration, and end-to-end tests, including any test infrastructure needed
+8. **Deployment** — how to ship safely: migrations, data migrations, feature flags, rollback plans
+9. **Monitoring** — how to verify the feature works in production: metrics, alerts, dashboards
+10. **Decisions** — significant technical choices and their reasoning
+11. **Open Questions** — unresolved questions that block or could change the design
+12. **Appendix A — Changelog** — dated record of revisions to the document
 
 ## Use Case Implementations
 
@@ -45,10 +46,12 @@ Each Use Case Implementation:
 
 Use Case Implementations mirror the use case hierarchy:
 
-| Use Case Level | Implementation Type | Purpose |
-|---|---|---|
-| Flow (F-XX) | End-to-end implementation | Shows the full interaction across all components for a complete actor goal |
-| Operation (O-XX) | Focused implementation | Shows the internal mechanics of a single reusable operation |
+
+| Use Case Level   | Implementation Type       | Purpose                                                                    |
+| ---------------- | ------------------------- | -------------------------------------------------------------------------- |
+| Flow (F-XX)      | End-to-end implementation | Shows the full interaction across all components for a complete actor goal |
+| Operation (O-XX) | Focused implementation    | Shows the internal mechanics of a single reusable operation                |
+
 
 An end-to-end implementation for a Flow may reference Operations inline (as labeled steps) or point to their separate focused implementations for detail.
 
@@ -63,14 +66,37 @@ Write a Use Case Implementation for every Flow. Write a separate focused impleme
 3. **Show the happy path first.** Use `rect` blocks to group logical phases. Add `note` annotations for side effects (storing tokens, logging events) that produce no response arrow.
 4. **Cover extensions.** Each extension from the use case should appear as an `alt` or `opt` block, or as a separate diagram if it would clutter the main one.
 5. **Never assume dependency behavior.** Do not guess how dependencies — including the runtime — behave in normal operation or failure modes. If the behavior is not well understood, resolve the ambiguity before writing the diagram:
-   1. **Read the code** — check the dependency's source for error handling, return values, and exception types.
-   2. **Read the documentation** — look for documented failure modes, error codes, and guarantees.
-   3. **Run an experiment** — Use a REPL or sandbox environment and observe the actual behavior.
-   4. **If none of these resolve the ambiguity, create an open question.** Reference the question ID (e.g., "See Q-03") in the diagram where the unknown behavior affects the extension. Do not invent behavior.
+  1. **Read the code** — check the dependency's source for error handling, return values, and exception types.
+  2. **Read the documentation** — look for documented failure modes, error codes, and guarantees.
+  3. **Run an experiment** — Use a REPL or sandbox environment and observe the actual behavior.
+  4. **If none of these resolve the ambiguity, create an open question.** Reference the question ID (e.g., "See Q-03") in the diagram where the unknown behavior affects the extension. Do not invent behavior.
+
+## Entities
+
+Entities map the core domain concepts into a class diagram. They represent the business objects the system operates on — independent of any particular database schema or API shape.
+
+Each entity corresponds to a meaningful concept from the use cases. If a use case actor reads, creates, updates, or reasons about something, that thing is likely an entity.
+
+### What to Include
+
+- **Attributes** — the fields that define the entity's state. Include name and type. Omit storage details (primary keys, foreign keys, version columns) — those belong in Tables.
+- **Relationships** — associations, compositions, and aggregations between entities, with multiplicity.
+- **Inheritance** — when entities share common structure through a type hierarchy.
+
+Do not model every use case in the diagram — model the domain. The diagram should be stable across use cases: a new use case should fit the existing entity model rather than force a restructure.
+
+### How to Write One
+
+Use Mermaid `classDiagram` syntax:
+
+1. **Identify entities from use cases.** Read each use case and list every domain concept the actor or system names. Group synonyms; eliminate duplicates.
+2. **Define attributes.** For each entity, list the attributes that matter for understanding invariants and relationships. Skip trivial fields.
+3. **Map relationships.** For each pair of related entities, state the relationship type (association, aggregation, composition, or inheritance) and the multiplicity.
+4. **Validate against use cases.** Every entity must be required by at least one use case. If an entity has no use case, remove it.
 
 ## Tables
 
-Tables define the data model — the persistent structures that support the use case implementations. This section covers new tables, changes to existing tables, and indices.
+Tables map the data model into the database. They persistent structures that support the use case implementations. This section covers new tables, changes to existing tables, and indices.
 
 ### New Tables
 
@@ -78,11 +104,13 @@ Define a new table when a Use Case Implementation reads from or writes to persis
 
 Use a standard column definition format:
 
-| Column Name | Type | Constraints | Notes |
-|---|---|---|---|
-| id | int | pk | |
-| name | string | not null | |
-| foreign_id | int | not null, fk | References other_table |
+
+| Column Name | Type   | Constraints  | Notes                  |
+| ----------- | ------ | ------------ | ---------------------- |
+| id          | int    | pk           |                        |
+| name        | string | not null     |                        |
+| foreign_id  | int    | not null, fk | References other_table |
+
 
 Document constraints and relationships inline. Add a note below the table for compound constraints (unique pairs, check constraints) that do not fit in a single cell.
 
@@ -93,6 +121,29 @@ When a Use Case Implementation requires modifications to a table defined elsewhe
 ### Indices
 
 Define indices for each table when query patterns in the Use Case Implementations demand them. Document the index name, columns, and whether it is unique.
+
+## Modules
+
+Modules show the internal code structure — the interfaces, their implementations, and how data flows between them. Where Use Case Implementations show *what happens*, Modules show *how the code is organized* to make it happen.
+
+A module is any coherent unit of code with a defined interface: a service, repository, handler, client, queue consumer, or utility layer.
+
+### What to Include
+
+Use two diagrams:
+
+1. **Class diagram** — the core interfaces, their public methods, and their dependency relationships. Show implementations when they differ meaningfully (e.g., a real vs. stub repository). Use the `<<interface>>` stereotype for interface types.
+2. **Dataflow diagram** — how data moves between modules at runtime. Show the data type crossing each boundary, not control flow. Control flow belongs in Use Case Implementations.
+
+Focus on the interfaces that matter for this design document. Do not diagram every class in the codebase.
+
+### How to Write One
+
+1. **Start from the Use Case Implementations.** Each participant in a sequence diagram is a module. Collect them.
+2. **Define the interface for each module.** What methods does it expose? What are their signatures?
+3. **Map dependencies.** Which module calls which? Draw a dependency arrow from caller to callee.
+4. **Draw the dataflow.** Trace the data types that cross each module boundary in the sequence diagrams.
+5. **Remove noise.** Omit modules and methods not relevant to the use cases in this document. The diagram should be readable in a single view.
 
 ## APIs
 
@@ -119,9 +170,9 @@ Testing is the most important section of a design document. A feature without a 
 
 1. **What do we test?** Map each use case Flow and Operation to the test types that cover it. Every Flow needs at least integration coverage. Every Operation needs at least unit coverage.
 2. **How do we test it?** Describe the approach at each level:
-   - **Unit tests** — which functions or modules run in isolation? What do you mock, and what stays real?
-   - **Integration tests** — which component boundaries do the tests cross? What infrastructure do they need (database, external service stubs)?
-   - **End-to-end tests** — which user-facing flows get full-stack coverage? What does the test environment look like?
+  - **Unit tests** — which functions or modules run in isolation? What do you mock, and what stays real?
+  - **Integration tests** — which component boundaries do the tests cross? What infrastructure do they need (database, external service stubs)?
+  - **End-to-end tests** — which user-facing flows get full-stack coverage? What does the test environment look like?
 3. **Do we need to build anything to make testing easy?** Identify test infrastructure gaps. If writing tests for this feature demands painful setup, repetitive boilerplate, or fragile mocks, design the tooling to fix it. Examples: factories, fixtures, test helpers, stub servers, seed scripts. Test infrastructure is first-class work, not an afterthought.
 
 ### How to Write One
@@ -226,7 +277,6 @@ Each question is a row in a status table:
 
 Reference open questions from other sections when they affect the design. For example, a Use Case Implementation might note "See Q-03" where behavior depends on an unanswered question.
 
-
 ---
 
 # Full Document Template
@@ -288,6 +338,22 @@ sequenceDiagram
 
 ---
 
+# Entities
+
+~~~mermaid
+classDiagram
+    class EntityA {
+        +Type fieldName
+        +Type fieldName
+    }
+    class EntityB {
+        +Type fieldName
+    }
+    EntityA "1" --> "*" EntityB : relationshipName
+~~~
+
+---
+
 # Tables
 
 ## [table_name]
@@ -296,6 +362,29 @@ sequenceDiagram
 |---|---|---|---|
 | id | int | pk | |
 | [column] | [type] | [constraints] | [notes] |
+
+---
+
+# Modules
+
+~~~mermaid
+classDiagram
+    class InterfaceName {
+        <<interface>>
+        +methodName(ParamType) ReturnType
+    }
+    class ImplementationName {
+        +methodName(ParamType) ReturnType
+    }
+    InterfaceName <|.. ImplementationName
+    CallerInterface --> InterfaceName : depends on
+~~~
+
+~~~mermaid
+flowchart LR
+    A[ModuleA] -->|DataType| B[ModuleB]
+    B -->|DataType| C[ModuleC]
+~~~
 
 ---
 
@@ -437,3 +526,4 @@ sequenceDiagram
 |---|---|---|
 | [YYYY-MM-DD] | [Name] | Initial draft |
 ```
+
