@@ -84,11 +84,26 @@ Never bake slide text with an AI image editor: it typos, drops words, and re-rol
 
 Keep all slide copy in one JSON file (text, layout position, style per slide) and a small render script that loops over it — editing copy is then a JSON change plus a two-second re-render, with zero typo risk. Write copy in the persona's documented voice and edit it like prose (omit needless words, concrete numbers, emphatic word last).
 
+**Contrast rule**: styled text without its own background (sticker outlines, marker script, handwriting) only works over quiet, dark-enough regions. When contrast fails — bright skies, busy textures — fall back to the classic caption-bubble pattern, which carries its own white background at any brightness.
+
 **Layout rule**: position each text stack around the image's subject, not over it — if the persona's hand, drink, or laptop is center-frame, move the text to the top or bottom third. Re-check after rendering; a centered stack silently covering the subject defeats the image choice.
 
 ## Review workflow
 
 Contact sheets make full-library review cheap: montage a whole scene folder into one labeled grid, judge, delete, re-montage the survivors. Review suspect images individually at full size — the persona test can't be run on thumbnails.
+
+## Step 8: Pre-publish red-team pass
+
+Before a deck ships, review it as a hostile commenter whose only goal is to reply "this is AI." Inspect every slide at full resolution and hunt:
+
+- **Hands and bodies**: finger counts, joint bends, skin blending at edges, reflections that don't match the subject
+- **Text in the scene**: signage, keyboards, screens, labels — generated text garbles; real photos don't
+- **Object continuity across the deck AND across past posts**: same phone case, same laptop, same nails, same jewelry, same bag. A prop that changes between posts is the most common silent tell
+- **Physics**: shadows agreeing on light direction, mirror reflections matching poses, liquid levels, straw positions
+- **Too-perfect signals**: symmetric composition, spotless surfaces, uniform bokeh, skin without pores
+- **Calendar truth**: season, weather, daylight hours, and outfits consistent with the persona's location and the posting date
+
+One confirmed tell = fix or pull the slide. The red-team pass is cheapest insurance the account has: a single viral "this is AI" comment thread can end the persona.
 
 ## Quality checklist
 
@@ -98,4 +113,5 @@ Before an image ships in a post:
 - [ ] Persona test passed at full resolution (body parts, companions, screens, geography)
 - [ ] No strangers' PII anywhere in frame
 - [ ] Deck cohesion: montaged next to its neighbors, same camera-roll feel
+- [ ] Red-team pass run on the assembled deck (Step 8)
 - [ ] Any retouches recorded in the manifest
