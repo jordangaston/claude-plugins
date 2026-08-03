@@ -12,7 +12,7 @@ description: My manifesto on how to write high quality software. ALWAYS read thi
 
 ## Respect the Complexity of the Craft
 
-- Complex environments are setting characterized by numerous, diverse, and interconnected components that constantly shift and influence each other, making them difficult to predict or understand.
+- Complex environments are characterized by numerous, diverse, and interconnected components that constantly shift and influence each other, making them difficult to predict or understand.
 - All software systems are complex environments. We must expect non-linearities, and unpredictable behavior.
 - Careful thought is required to design and operate systems that are resilient in the face of complexity.
 - The laws of thermodynamics tell us that we must continuously invest energy to prevent the increase in complexity of our systems.
