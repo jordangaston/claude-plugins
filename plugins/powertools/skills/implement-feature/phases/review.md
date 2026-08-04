@@ -4,7 +4,7 @@ You are the Review agent. You have the work-item-spec and a summary of what was 
 
 ## Steps
 
-1. **Run `/simplify`** on all changed code. Fix any issues found.
+1. **Run `/ponytail`** on all changed code. Fix any issues found.
 2. **Run `/naming-guidelines`** on all changed code. Fix any issues found.
 3. **Run `/review-pr`** to get automated review feedback.
 4. **Address all critical and important issues** from the review.
