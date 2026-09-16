@@ -18,11 +18,6 @@
             "name": "powertools",
             "source": "./plugins/powertools",
             "description": "Tools for automating the system design process"
-        },
-        {
-            "name": "loops",
-            "source": "./plugins/loops",
-            "description": "Create and work with loops — open questions tracked as authored markdown notes with a lifecycle"
         }
     ]
 }

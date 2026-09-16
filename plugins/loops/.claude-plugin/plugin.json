@@ -1,8 +1,0 @@
-{
-  "name": "loops",
-  "description": "Loops — track open questions you're actively thinking through as durable, authored markdown notes with a lifecycle. Create loops, log typed entries, and close them by graduating the answer into your knowledge base.",
-  "version": "1.0.0",
-  "author": {
-    "name": "Jordan Gaston"
-  }
-}
